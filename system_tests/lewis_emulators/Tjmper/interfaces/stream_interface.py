@@ -7,14 +7,15 @@ from lewis.utils.replies import conditional_reply
 @has_log
 class TjmperStreamInterface(StreamInterface):
     
-    in_terminator = "\r\n"
-    out_terminator = "\r\n"
+    in_terminator = "\r"
+    out_terminator = "\r"
 
     def __init__(self):
         super(TjmperStreamInterface, self).__init__()
         # Commands that we expect via serial during normal operation
         self.commands = {
-            CmdBuilder(self.catch_all).arg("^#9.*$").build()  # Catch-all command for debugging
+            CmdBuilder(self.get_status).escape("?STS").eos().build(),
+            CmdBuilder(self.set_mode).escape("OPM").int().eos().build(),
         }
 
     def handle_error(self, request, error):
@@ -28,5 +29,9 @@ class TjmperStreamInterface(StreamInterface):
         """
         self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
-    def catch_all(self, command):
-        pass
+    def get_status(self):
+        return "ACK\rITJ0,OPM{},LMT000000,AIR0,ERR0".format(self.device.mode)
+
+    def set_mode(self, mode):
+        self.device.mode = mode
+        return "ACK"

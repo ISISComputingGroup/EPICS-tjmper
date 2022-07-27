@@ -1,18 +1,13 @@
-getIDN {
-    out "*IDN?";
-    in "%\$1[^\r\n]";
-    ExtraInput = Ignore;
+Terminator = CR;
+ReplyTimeout = 1000;
+
+getStatus {
+    out "?STS";
+    in "ACK";
+    in "ITJ%(\$1.A)d,OPM%(\$1.B)d,LMT%(\$1.C)d,AIR%(\$1.D)d,ERR%(\$1.E)d";
 }
 
-cmd {
-    out "\$1";
-}
-
-setD {
-    out "\$1 %d";
-}
-getD {
-    out "\$1?";
-    in "%d";
-    ExtraInput = Ignore;
+setMode {
+    out "%{OPM0|OPM1|OPM2}";
+    in "ACK";
 }

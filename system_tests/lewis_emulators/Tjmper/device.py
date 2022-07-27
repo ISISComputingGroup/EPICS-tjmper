@@ -9,7 +9,8 @@ class SimulatedTjmper(StateMachineDevice):
         """
         Initialize all of the device's attributes.
         """
-        pass
+        #make enum
+        self.mode = 0
 
     def _get_state_handlers(self):
         return {
