@@ -45,31 +45,43 @@ record(mbbiDirect, "$(P)LMT")
 record(bi, "$(P)LMT:PLATE1:HOME")
 {
     field(INP, "$(P)LMT.B5 CP MSS")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
 }
 
 record(bi, "$(P)LMT:PLATE1:ENGAGED")
 {
     field(INP, "$(P)LMT.B4 CP MSS")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
 }
 
 record(bi, "$(P)LMT:PLATE2:HOME")
 {
     field(INP, "$(P)LMT.B3 CP MSS")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
 }
 
 record(bi, "$(P)LMT:PLATE2:ENGAGED")
 {
     field(INP, "$(P)LMT.B2 CP MSS")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
 }
 
 record(bi, "$(P)LMT:SAMPLE:HOME")
 {
     field(INP, "$(P)LMT.B1 CP MSS")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
 }
 
-record(bi, "$(P)LMT:PLATE1:ENGAGED")
+record(bi, "$(P)LMT:SAMPLE:ENGAGED")
 {
     field(INP, "$(P)LMT.B0 CP MSS")
+    field(ZNAM, "NO")
+    field(ONAM, "YES")
 }
 
 record(mbbi, "$(P)BLOCK1:POS")

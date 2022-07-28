@@ -4,7 +4,7 @@ ReplyTimeout = 1000;
 getStatus {
     out "?STS";
     in "ACK";
-    in "ITJ%d,OPM%(\$1MODE)d,LMT%(\$1LMT)d,AIR%(\$1AIR)d,ERR%(\$1ERR)d";
+    in "ITJ%d,OPM%(\$1MODE)d,LMT%(\$1LMT)b,AIR%(\$1AIR)d,ERR%(\$1ERR)d";
 }
 
 setMode {
