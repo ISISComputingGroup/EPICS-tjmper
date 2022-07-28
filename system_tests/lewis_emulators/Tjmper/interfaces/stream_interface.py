@@ -12,10 +12,9 @@ class TjmperStreamInterface(StreamInterface):
 
     def __init__(self):
         super(TjmperStreamInterface, self).__init__()
-        # Commands that we expect via serial during normal operation
         self.commands = {
             CmdBuilder(self.get_status).escape("?STS").eos().build(),
-            CmdBuilder(self.set_mode).escape("OPM").int().eos().build(),
+            CmdBuilder(self.set_operating_mode).escape("OPM").int().eos().build(),
         }
 
     def handle_error(self, request, error):
@@ -29,9 +28,14 @@ class TjmperStreamInterface(StreamInterface):
         """
         self.log.error("An error occurred at request " + repr(request) + ": " + repr(error))
 
+    @conditional_reply("connected")
     def get_status(self):
-        return "ACK\rITJ0,OPM{},LMT000000,AIR0,ERR0".format(self.device.mode)
+        return f"ACK\rITJ{self.device.id},OPM{self.device.operating_mode},LMT{self.device.piston_limits_state},AIR{self.device.air_supply},ERR{self.device.error_state}"
+        
+    @conditional_reply("connected")
+    def set_operating_mode(self, operating_mode):
+        self.device.operating_mode = operating_mode
 
-    def set_mode(self, mode):
-        self.device.mode = mode
+        #TODO Set the limits, supply, and air state.
+        
         return "ACK"
