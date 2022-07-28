@@ -30,12 +30,12 @@ class TjmperStreamInterface(StreamInterface):
 
     @conditional_reply("connected")
     def get_status(self):
-        return f"ACK\rITJ{self.device.id},OPM{self.device.operating_mode},LMT{self.device.piston_limits_state},AIR{self.device.air_supply},ERR{self.device.error_state}"
+        return f"ACK\rITJ{self.device.id},OPM{self.device.operating_mode},LMT{self.device.piston_limits_status},AIR{self.device.air_supply},ERR{self.device.error_state}"
         
     @conditional_reply("connected")
     def set_operating_mode(self, operating_mode):
         self.device.operating_mode = operating_mode
 
         #TODO Set the limits, supply, and air state.
-        
+
         return "ACK"

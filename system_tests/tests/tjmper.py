@@ -25,11 +25,14 @@ IOCS = [
 #TEST_MODES = [TestModes.RECSIM, TestModes.DEVSIM]
 TEST_MODES = [TestModes.DEVSIM]
 
-STATES = [
-    ("Home", ),
-    ("Block 1", ),
-    ("Block 2", )
+
+OPERATING_MODES = [
+    "All out",
+    "PLT1 and SMPL engaged",
+    "PLT2 and SMPL engaged"
 ]
+
+
 
 class TjmperTests(unittest.TestCase):
     """
@@ -45,17 +48,11 @@ class TjmperTests(unittest.TestCase):
         self.ca.assert_that_pv_is("ID", id_value)
 
     @parameterized.expand(
-        parameterized_list(["Home", "Block 1", "Block 2"])
+        parameterized_list(OPERATING_MODES)
     )
     def test_WHEN_mode_set_THEN_mode_updates(self, _, mode_name):
         self.ca.set_pv_value("MODE:SP", mode_name)
         self.ca.assert_that_pv_is("MODE", mode_name)
-
-    @parameterized.expand(
-        parameterized_list(STATES)
-    )
-    def test_GIVEN_all_pistons_out_WHEN_mode_set_THEN_states_are_correct(self, _, mode, state):
-        pass
         
     @contextlib.contextmanager
     def _disconnect_device(self):

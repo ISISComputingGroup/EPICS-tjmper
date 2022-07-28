@@ -21,34 +21,55 @@ record(bo, "$(P)DISABLE")
 record(longin, "$(P)ID")
 {
     field(DESC, "The ID of the device")
+    field(SCAN, "1 second")
+    field(DTYP, "stream")
+    field(INP, "@tjmper.proto getStatus($(P)) $(PORT)")
     info(archive, "VAL")
 }
 
 record(mbbi, "$(P)MODE")
 {
     field(DESC, "The current mode of operation")
-    field(ZRST, "Home")
-    field(ONST, "Block 1")
-    field(TWST, "Block 2")
+    field(ZRST, "All out")
+    field(ONST, "PLT1 and SMPL engaged")
+    field(TWST, "PLT2 and SMPL engaged")
     info(interest, "HIGH")
     info(archive, "VAL")
 }
 
-record(mbbi, "$(P)LMT")
+record(mbbiDirect, "$(P)LMT")
 {
     field(DESC, "Details of the blocks’ positions")
-    field(ZRST, "All out")
-    field(ONST, "PLT1EN PLT2HM SMPLEN")
-    field(TWST, "PLT1HM PLT2EN SMPLEN")
-    field(THST, "PLT1EN PLT2HM SMPLHM")
-    field(FRST, "PLT1HM PLT2EN SMPLHM")
-    field(FVST, "Plate1 moving")
-    field(SXST, "Plate2 moving")
-    field(SVST, "PLT1EN sample moving")
-    field(EIST, "PLT2EN sample moving")
-    field(NIST, "SMPL stop PLT out")
-    field(TEST, "Not possible")
-    field(ELST, "Two plates moving")
+}
+
+record(bi, "$(P)LMT:PLATE1:HOME")
+{
+    field(INP, "$(P)LMT.B5 CP MSS")
+}
+
+record(bi, "$(P)LMT:PLATE1:ENGAGED")
+{
+    field(INP, "$(P)LMT.B4 CP MSS")
+}
+
+record(bi, "$(P)LMT:PLATE2:HOME")
+{
+    field(INP, "$(P)LMT.B3 CP MSS")
+}
+
+record(bi, "$(P)LMT:PLATE2:ENGAGED")
+{
+    field(INP, "$(P)LMT.B2 CP MSS")
+}
+
+record(bi, "$(P)LMT:SAMPLE:HOME")
+{
+    field(INP, "$(P)LMT.B1 CP MSS")
+}
+
+record(bi, "$(P)LMT:PLATE1:ENGAGED")
+{
+    field(INP, "$(P)LMT.B0 CP MSS")
 }
 
 record(mbbi, "$(P)BLOCK1:POS")
@@ -100,40 +121,13 @@ record(mbbi, "$(P)ERR")
     info(archive, "VAL")
 }
 
-record(ai, "$(P)STAT:_SCAN")
-{
-    field(SCAN, "1 second")
-    field(DTYP, "stream")
-    field(INP, "@tjmper.proto getStatus($(P)STAT:_RAW) $(PORT)")
-}
-
-record(calcout, "$(P)STAT:_RAW")
-{
-    field(CALC, "0")
-    field(FLNK, "$(P)STAT:_FANOUT")
-}
-
-record(seq, "$(P)STAT:_FANOUT")
-{
-    field(DOL1, "$(P)STAT:_RAW.A")
-    field(DOL2, "$(P)STAT:_RAW.B")
-    field(DOL3, "$(P)STAT:_RAW.C")
-    field(DOL4, "$(P)STAT:_RAW.D")
-    field(DOL5, "$(P)STAT:_RAW.E")
-    field(LNK1, "$(P)ID PP")
-    field(LNK2, "$(P)MODE PP")
-    field(LNK3, "$(P)LMT PP")
-    field(LNK4, "$(P)AIR PP")
-    field(LNK5, "$(P)ERR PP")
-}
-
 record(mbbo, "$(P)MODE:SP")
 {
     field(DESC, "Set the running mode")
     field(DTYP, "stream")
     field(OUT, "@tjmper.proto setMode() $(PORT)")
-    field(ZRST, "Home")
-    field(ONST, "Block 1")
-    field(TWST, "Block 2")
+    field(ZRST, "All out")
+    field(ONST, "PLT1 and SMPL engaged")
+    field(TWST, "PLT2 and SMPL engaged")
     info(archive, "VAL")
 }
