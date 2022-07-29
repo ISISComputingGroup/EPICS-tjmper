@@ -31,30 +31,3 @@ class SimulatedTjmper(StateMachineDevice):
         self.sample_engaged = 0
         self.air_supply = 0
         self.error_state = 0
-
-    def mode_0_set(self):
-        self.plate_1_home = 1
-        self.plate_1_engaged = 0
-        self.plate_2_home = 1
-        self.plate_2_engaged = 0
-        self.sample_home = 1
-        self.sample_engaged = 0
-
-    def mode_1_set(self):
-        self.plate_1_home = 0
-        self.plate_1_engaged = 1
-        self.plate_2_home = 1
-        self.plate_2_engaged = 0
-        self.sample_home = 0
-        self.sample_engaged = 1
-
-    def mode_2_set(self):
-        self.plate_1_home = 1
-        self.plate_1_engaged = 0
-        self.plate_2_home = 0
-        self.plate_2_engaged = 1
-        self.sample_home = 0
-        self.sample_engaged = 1
-
-    def get_piston_limits_status(self):
-        return f"{self.plate_1_home}{self.plate_1_engaged}{self.plate_2_home}{self.plate_2_engaged}{self.sample_home}{self.sample_engaged}"
