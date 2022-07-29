@@ -30,9 +30,9 @@ record(longin, "$(P)ID")
 record(mbbi, "$(P)MODE")
 {
     field(DESC, "The current mode of operation")
-    field(ZRST, "All out")
-    field(ONST, "PLT1 and SMPL engaged")
-    field(TWST, "PLT2 and SMPL engaged")
+    field(ZRST, "All out")                  # All home
+    field(ONST, "PLT1 and SMPL engaged")    # Engage Plate 1 and sample
+    field(TWST, "PLT2 and SMPL engaged")    # Engage Plate 2 and sample
     info(interest, "HIGH")
     info(archive, "VAL")
 }
@@ -45,43 +45,43 @@ record(mbbiDirect, "$(P)LMT")
 record(bi, "$(P)LMT:PLATE1:HOME")
 {
     field(INP, "$(P)LMT.B5 CP MSS")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
 record(bi, "$(P)LMT:PLATE1:ENGAGED")
 {
     field(INP, "$(P)LMT.B4 CP MSS")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
 record(bi, "$(P)LMT:PLATE2:HOME")
 {
     field(INP, "$(P)LMT.B3 CP MSS")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
 record(bi, "$(P)LMT:PLATE2:ENGAGED")
 {
     field(INP, "$(P)LMT.B2 CP MSS")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
 record(bi, "$(P)LMT:SAMPLE:HOME")
 {
     field(INP, "$(P)LMT.B1 CP MSS")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
 record(bi, "$(P)LMT:SAMPLE:ENGAGED")
 {
     field(INP, "$(P)LMT.B0 CP MSS")
-    field(ZNAM, "NO")
-    field(ONAM, "YES")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
 record(mbbi, "$(P)BLOCK1:POS")
@@ -108,10 +108,10 @@ record(mbbi, "$(P)SAMPLE:POS")
 record(mbbi, "$(P)AIR")
 {
     field(DESC, "The status of the air supply")
-    field(ZRST, "Off Dumped")
-    field(ONST, "Off Valve Reset")
-    field(TWST, "On Dumped")
-    field(THST, "On Valve Reset")
+    field(ZRST, "Off Dumped")       # Air Supply off, Air Dumped
+    field(ONST, "Off Valve Reset")  # Air Supply off and Air Dump Valve Reset
+    field(TWST, "On Dumped")        # Air Supply on, Air Dumped (Guard line, E-Stop or Dump Air)
+    field(THST, "On Valve Reset")   # Air Supply on and Air Dump Valve Reset (Operational
     info(interest, "HIGH")
     info(archive, "VAL")
 }
@@ -119,15 +119,23 @@ record(mbbi, "$(P)AIR")
 record(mbbi, "$(P)ERR")
 {
     field(DESC, "Any error that is present")
-    field(ZRST, "No Error (Operational)")
-    field(ONST, "PLT1 Homing TMO")
-    field(TWST, "PLT1 Engaging TMO")
-    field(THST, "PLT1EN SMPL Homing TMO")
-    field(FRST, "PLT1EN SMPL Engaging TMO")
-    field(FVST, "PLT2 Homing TMO")
-    field(SXST, "PLT2 Engaging TMO")
-    field(SVST, "PLT2EN SMPL Homing TMO")
-    field(EIST, "PLT2EN SMPL Engaging TMO")
+    field(ZRST, "No Error (Operational)")       # No Error (Operational)
+    field(ONST, "PLT1 Homing TMO")              # Plate1 Homing time-out
+    field(TWST, "PLT1 Engaging TMO")            # Plate1 Engaging time-out
+    field(THST, "PLT1EN SMPL Homing TMO")       # Plate1 Engaged - Sample homing time-out
+    field(FRST, "PLT1EN SMPL Engaging TMO")     # Plate1 Engaged - Sample engaging time-out
+    field(FVST, "PLT2 Homing TMO")              # Plate2 Homing time-out
+    field(SXST, "PLT2 Engaging TMO")            # Plate2 Engaging time-out
+    field(SVST, "PLT2EN SMPL Homing TMO")       # Plate2 Engaged - Sample homing time-ou
+    field(EIST, "PLT2EN SMPL Engaging TMO")     # Plate2 Engaged – Sample engaging time-out
+    field(ONSV, MAJOR)
+    field(TWSV, MAJOR)
+    field(THSV, MAJOR)
+    field(FRSV, MAJOR)
+    field(FVSV, MAJOR)
+    field(SXSV, MAJOR)
+    field(SVSV, MAJOR)
+    field(EISV, MAJOR)
     info(alarm, "TJMPER")
     info(interest, "HIGH")
     info(archive, "VAL")
