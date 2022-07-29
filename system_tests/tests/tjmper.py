@@ -27,21 +27,15 @@ TEST_MODES = [TestModes.DEVSIM]
 
 
 MODES = [
-    "All out",
-    "PLT1 and SMPL engaged",
-    "PLT2 and SMPL engaged"
+    ("All out",                 [1, 0, 1, 0, 1, 0]),
+    ("PLT1 and SMPL engaged",   [0, 1, 1, 0, 0, 1]),
+    ("PLT2 and SMPL engaged",   [1, 0, 0, 1, 0, 1])
 ]
 
-LIMITS = [
-    [1, 0, 1, 0, 1, 0],
-    [0, 1, 1, 0, 0, 1],
-    [1, 0, 0, 1, 0, 1],
-    [0, 1, 1, 0, 1, 0],
-    [1, 0, 0, 1, 1, 0],
-    [0, 0, 1, 0, 1, 0],
-    [1, 0, 0, 0, 1, 0],
-    [0, 1, 1, 0, 0, 0],
-    [1, 0, 0, 1, 0, 0]
+MOVING_PVS = [
+    "PLATE1:MOVING",
+    "PLATE2:MOVING",
+    "SAMPLE:MOVING"
 ]
 
 AIR_SUPPLY = [
@@ -92,23 +86,24 @@ class TjmperTests(unittest.TestCase):
         self._lewis.backdoor_set_on_device("id", id_value)
         self.ca.assert_that_pv_is("ID", id_value)
 
-    @parameterized.expand(parameterized_list(LIMITS))
-    def test_WHEN_limits_set_via_backdoor_THEN_limits_update(self, _, states):
-        self._lewis.backdoor_set_on_device("plate_1_home", states[0])
-        self._lewis.backdoor_set_on_device("plate_1_engaged", states[1])
-        self._lewis.backdoor_set_on_device("plate_2_home", states[2])
-        self._lewis.backdoor_set_on_device("plate_2_engaged", states[3])
-        self._lewis.backdoor_set_on_device("sample_home", states[4])
-        self._lewis.backdoor_set_on_device("sample_engaged", states[5])
+    @parameterized.expand(parameterized_list(MOVING_PVS))
+    def test_WHEN_limits_set_via_backdoor_THEN_moving_pvs_update(self, _, moving_pv):
+        self._lewis.backdoor_set_on_device("plate_1_home", 0)
+        self._lewis.backdoor_set_on_device("plate_1_engaged", 0)
+        self._lewis.backdoor_set_on_device("plate_2_home", 0)
+        self._lewis.backdoor_set_on_device("plate_2_engaged", 0)
+        self._lewis.backdoor_set_on_device("sample_home", 0)
+        self._lewis.backdoor_set_on_device("sample_engaged", 0)
+        self.ca.assert_that_pv_is(moving_pv, "True")
 
-        convert = lambda n: "True" if n == 1 else "False"
-        self.ca.assert_that_pv_is("LMT:PLATE1:HOME", convert(states[0]))
-        self.ca.assert_that_pv_is("LMT:PLATE1:ENGAGED", convert(states[1]))
-        self.ca.assert_that_pv_is("LMT:PLATE2:HOME", convert(states[2]))
-        self.ca.assert_that_pv_is("LMT:PLATE2:ENGAGED", convert(states[3]))
-        self.ca.assert_that_pv_is("LMT:SAMPLE:HOME", convert(states[4]))
-        self.ca.assert_that_pv_is("LMT:SAMPLE:ENGAGED", convert(states[5]))
-        
+        self._lewis.backdoor_set_on_device("plate_1_home", 1)
+        self._lewis.backdoor_set_on_device("plate_1_engaged", 0)
+        self._lewis.backdoor_set_on_device("plate_2_home", 1)
+        self._lewis.backdoor_set_on_device("plate_2_engaged", 0)
+        self._lewis.backdoor_set_on_device("sample_home", 1)
+        self._lewis.backdoor_set_on_device("sample_engaged", 0)
+        self.ca.assert_that_pv_is(moving_pv, "False")
+
     @parameterized.expand(parameterized_list(AIR_SUPPLY))
     def test_WHEN_air_supply_set_via_backdoor_THEN_air_supply_updates(self, _, code, string):
         self._lewis.backdoor_set_on_device("air_supply", code)
@@ -121,9 +116,17 @@ class TjmperTests(unittest.TestCase):
         self.ca.assert_that_pv_alarm_is("ERR", state)
 
     @parameterized.expand(parameterized_list(MODES))
-    def test_WHEN_mode_set_THEN_mode_updates(self, _, mode):
+    def test_WHEN_mode_set_THEN_mode_updates(self, _, mode, states):
         self.ca.set_pv_value("MODE:SP", mode)
         self.ca.assert_that_pv_is("MODE", mode)
+
+        convert = lambda n: "True" if n == 1 else "False"
+        self.ca.assert_that_pv_is("LMT:PLATE1:HOME", convert(states[0]))
+        self.ca.assert_that_pv_is("LMT:PLATE1:ENGAGED", convert(states[1]))
+        self.ca.assert_that_pv_is("LMT:PLATE2:HOME", convert(states[2]))
+        self.ca.assert_that_pv_is("LMT:PLATE2:ENGAGED", convert(states[3]))
+        self.ca.assert_that_pv_is("LMT:SAMPLE:HOME", convert(states[4]))
+        self.ca.assert_that_pv_is("LMT:SAMPLE:ENGAGED", convert(states[5]))
 
     @contextlib.contextmanager
     def _disconnect_device(self):

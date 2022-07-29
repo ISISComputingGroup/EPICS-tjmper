@@ -43,4 +43,27 @@ class TjmperStreamInterface(StreamInterface):
     @conditional_reply("connected")
     def set_operating_mode(self, operating_mode):
         self.device.operating_mode = operating_mode
+
+        if operating_mode == 0:
+            self.device.plate_1_home = 1
+            self.device.plate_1_engaged = 0
+            self.device.plate_2_home = 1
+            self.device.plate_2_engaged = 0
+            self.device.sample_home = 1
+            self.device.sample_engaged = 0
+        elif operating_mode == 1:
+            self.device.plate_1_home = 0
+            self.device.plate_1_engaged = 1
+            self.device.plate_2_home = 1
+            self.device.plate_2_engaged = 0
+            self.device.sample_home = 0
+            self.device.sample_engaged = 1
+        else:
+            self.device.plate_1_home = 1
+            self.device.plate_1_engaged = 0
+            self.device.plate_2_home = 0
+            self.device.plate_2_engaged = 1
+            self.device.sample_home = 0
+            self.device.sample_engaged = 1
+
         return "ACK"

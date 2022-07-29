@@ -1,4 +1,5 @@
 from collections import OrderedDict
+from enum import Enum
 from .states import DefaultState
 from lewis.devices import StateMachineDevice
 

@@ -84,25 +84,46 @@ record(bi, "$(P)LMT:SAMPLE:ENGAGED")
     field(ONAM, "True")
 }
 
-record(mbbi, "$(P)BLOCK1:POS")
+record(calc, "$(P)PLATE1:MOVING:_CALC")
 {
-    field(DESC, "The position of block 1")
-    info(interest, "HIGH")
-    info(archive, "VAL")
+    field(INPA, "$(P)LMT:PLATE1:HOME CP MSS")
+    field(INPB, "$(P)LMT:PLATE1:ENGAGED CP MSS")
+    field(CALC, "(!A) && (!B)")
 }
 
-record(mbbi, "$(P)BLOCK2:POS")
+record(bi, "$(P)PLATE1:MOVING")
 {
-    field(DESC, "The position of block 2")
-    info(interest, "HIGH")
-    info(archive, "VAL")
+    field(INP, "$(P)PLATE1:MOVING:_CALC CP MSS")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
-record(mbbi, "$(P)SAMPLE:POS")
+record(calc, "$(P)PLATE2:MOVING:_CALC")
 {
-    field(DESC, "The position of the sample")
-    info(interest, "HIGH")
-    info(archive, "VAL")
+    field(INPA, "$(P)LMT:PLATE2:HOME CP MSS")
+    field(INPB, "$(P)LMT:PLATE2:ENGAGED CP MSS")
+    field(CALC, "(!A) && (!B)")
+}
+
+record(bi, "$(P)PLATE2:MOVING")
+{
+    field(INP, "$(P)PLATE2:MOVING:_CALC CP MSS")
+    field(ZNAM, "False")
+    field(ONAM, "True")
+}
+
+record(calc, "$(P)SAMPLE:MOVING:_CALC")
+{
+    field(INPA, "$(P)LMT:SAMPLE:HOME CP MSS")
+    field(INPB, "$(P)LMT:SAMPLE:ENGAGED CP MSS")
+    field(CALC, "(!A) && (!B)")
+}
+
+record(bi, "$(P)SAMPLE:MOVING")
+{
+    field(INP, "$(P)SAMPLE:MOVING:_CALC CP MSS")
+    field(ZNAM, "False")
+    field(ONAM, "True")
 }
 
 record(mbbi, "$(P)AIR")
