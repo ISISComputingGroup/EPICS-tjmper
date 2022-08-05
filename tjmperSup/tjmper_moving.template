@@ -1,0 +1,13 @@
+record(calc, "$(P)$(PART):MOVING:_CALC")
+{
+    field(INPA, "$(P)LMT:$(PART):HOME CP MSS")
+    field(INPB, "$(P)LMT:$(PART):ENGAGED CP MSS")
+    field(CALC, "(!A) && (!B)")
+}
+
+record(bi, "$(P)$(PART):MOVING")
+{
+    field(INP, "$(P)$(PART):MOVING:_CALC CP MSS")
+    field(ZNAM, "False")
+    field(ONAM, "True")
+}
