@@ -37,93 +37,20 @@ record(mbbi, "$(P)MODE")
     info(archive, "VAL")
 }
 
+record(mbbo, "$(P)MODE:SP")
+{
+    field(DESC, "Set the running mode")
+    field(DTYP, "stream")
+    field(OUT, "@tjmper.proto setMode() $(PORT)")
+    field(ZRST, "All out")
+    field(ONST, "PLT1 and SMPL engaged")
+    field(TWST, "PLT2 and SMPL engaged")
+    info(archive, "VAL")
+}
+
 record(mbbiDirect, "$(P)LMT")
 {
     field(DESC, "Details of the blocks’ positions")
-}
-
-record(bi, "$(P)LMT:PLATE1:HOME")
-{
-    field(INP, "$(P)LMT.B5 CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(bi, "$(P)LMT:PLATE1:ENGAGED")
-{
-    field(INP, "$(P)LMT.B4 CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(bi, "$(P)LMT:PLATE2:HOME")
-{
-    field(INP, "$(P)LMT.B3 CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(bi, "$(P)LMT:PLATE2:ENGAGED")
-{
-    field(INP, "$(P)LMT.B2 CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(bi, "$(P)LMT:SAMPLE:HOME")
-{
-    field(INP, "$(P)LMT.B1 CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(bi, "$(P)LMT:SAMPLE:ENGAGED")
-{
-    field(INP, "$(P)LMT.B0 CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(calc, "$(P)PLATE1:MOVING:_CALC")
-{
-    field(INPA, "$(P)LMT:PLATE1:HOME CP MSS")
-    field(INPB, "$(P)LMT:PLATE1:ENGAGED CP MSS")
-    field(CALC, "(!A) && (!B)")
-}
-
-record(bi, "$(P)PLATE1:MOVING")
-{
-    field(INP, "$(P)PLATE1:MOVING:_CALC CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(calc, "$(P)PLATE2:MOVING:_CALC")
-{
-    field(INPA, "$(P)LMT:PLATE2:HOME CP MSS")
-    field(INPB, "$(P)LMT:PLATE2:ENGAGED CP MSS")
-    field(CALC, "(!A) && (!B)")
-}
-
-record(bi, "$(P)PLATE2:MOVING")
-{
-    field(INP, "$(P)PLATE2:MOVING:_CALC CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
-}
-
-record(calc, "$(P)SAMPLE:MOVING:_CALC")
-{
-    field(INPA, "$(P)LMT:SAMPLE:HOME CP MSS")
-    field(INPB, "$(P)LMT:SAMPLE:ENGAGED CP MSS")
-    field(CALC, "(!A) && (!B)")
-}
-
-record(bi, "$(P)SAMPLE:MOVING")
-{
-    field(INP, "$(P)SAMPLE:MOVING:_CALC CP MSS")
-    field(ZNAM, "False")
-    field(ONAM, "True")
 }
 
 record(mbbi, "$(P)AIR")
@@ -159,16 +86,5 @@ record(mbbi, "$(P)ERR")
     field(EISV, MAJOR)
     info(alarm, "TJMPER")
     info(interest, "HIGH")
-    info(archive, "VAL")
-}
-
-record(mbbo, "$(P)MODE:SP")
-{
-    field(DESC, "Set the running mode")
-    field(DTYP, "stream")
-    field(OUT, "@tjmper.proto setMode() $(PORT)")
-    field(ZRST, "All out")
-    field(ONST, "PLT1 and SMPL engaged")
-    field(TWST, "PLT2 and SMPL engaged")
     info(archive, "VAL")
 }

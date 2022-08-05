@@ -1,0 +1,6 @@
+record(bi, "$(P)LMT:$(PART):$(MODE)")
+{
+    field(INP, "$(P)LMT.$(REF) CP MSS")
+    field(ZNAM, "False")
+    field(ONAM, "True")
+}
