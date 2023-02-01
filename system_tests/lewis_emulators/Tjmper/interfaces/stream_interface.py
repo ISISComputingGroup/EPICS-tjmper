@@ -30,7 +30,7 @@ class TjmperStreamInterface(StreamInterface):
 
     @conditional_reply("connected")
     def get_status(self):
-        return "ACK\rITJ{},OPM{},LMT{}{}{}{}{}{},AIR{},ERR{}".format(
+        return "TJA{},OPM{},LMT{}{}{}{}{}{},AIR{},ERR{}".format(
             self.device.id,
             self.device.operating_mode,
             self.device.plate_1_home, self.device.plate_1_engaged,
