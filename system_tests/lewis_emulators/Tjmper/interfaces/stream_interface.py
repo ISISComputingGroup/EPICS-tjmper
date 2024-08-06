@@ -6,7 +6,6 @@ from lewis.utils.replies import conditional_reply
 
 @has_log
 class TjmperStreamInterface(StreamInterface):
-    
     in_terminator = "\r"
     out_terminator = "\r"
 
@@ -33,13 +32,16 @@ class TjmperStreamInterface(StreamInterface):
         return "TJA{},OPM{},LMT{}{}{}{}{}{},AIR{},ERR{}".format(
             self.device.id,
             self.device.operating_mode,
-            self.device.plate_1_home, self.device.plate_1_engaged,
-            self.device.plate_2_home, self.device.plate_2_engaged,
-            self.device.sample_home, self.device.sample_engaged,
+            self.device.plate_1_home,
+            self.device.plate_1_engaged,
+            self.device.plate_2_home,
+            self.device.plate_2_engaged,
+            self.device.sample_home,
+            self.device.sample_engaged,
             self.device.air_supply,
-            self.device.error_state
+            self.device.error_state,
         )
-        
+
     @conditional_reply("connected")
     def set_operating_mode(self, operating_mode):
         self.device.operating_mode = operating_mode

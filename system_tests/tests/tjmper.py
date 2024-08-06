@@ -24,34 +24,25 @@ TEST_MODES = [TestModes.DEVSIM]
 
 
 MODES = [
-    ("All out",                 [1, 0, 1, 0, 1, 0]),
-    ("PLT1 and SMPL engaged",   [0, 1, 1, 0, 0, 1]),
-    ("PLT2 and SMPL engaged",   [1, 0, 0, 1, 0, 1])
+    ("All out", [1, 0, 1, 0, 1, 0]),
+    ("PLT1 and SMPL engaged", [0, 1, 1, 0, 0, 1]),
+    ("PLT2 and SMPL engaged", [1, 0, 0, 1, 0, 1]),
 ]
 
-MOVING_PVS = [
-    "PLATE1:MOVING",
-    "PLATE2:MOVING",
-    "SAMPLE:MOVING"
-]
+MOVING_PVS = ["PLATE1:MOVING", "PLATE2:MOVING", "SAMPLE:MOVING"]
 
-AIR_SUPPLY = [
-    (0, "Off Dumped"),
-    (1, "Off Valve Reset"),
-    (2, "On Dumped"),
-    (3, "On Valve Reset")
-]
+AIR_SUPPLY = [(0, "Off Dumped"), (1, "Off Valve Reset"), (2, "On Dumped"), (3, "On Valve Reset")]
 
 ERRORS = [
-    (0, "No Error (Operational)",   ChannelAccess.Alarms.NONE),
-    (1, "PLT1 Homing TMO",          ChannelAccess.Alarms.MAJOR),
-    (2, "PLT1 Engaging TMO",        ChannelAccess.Alarms.MAJOR),
-    (3, "PLT1EN SMPL Homing TMO",   ChannelAccess.Alarms.MAJOR),
+    (0, "No Error (Operational)", ChannelAccess.Alarms.NONE),
+    (1, "PLT1 Homing TMO", ChannelAccess.Alarms.MAJOR),
+    (2, "PLT1 Engaging TMO", ChannelAccess.Alarms.MAJOR),
+    (3, "PLT1EN SMPL Homing TMO", ChannelAccess.Alarms.MAJOR),
     (4, "PLT1EN SMPL Engaging TMO", ChannelAccess.Alarms.MAJOR),
-    (5, "PLT2 Homing TMO",          ChannelAccess.Alarms.MAJOR),
-    (6, "PLT2 Engaging TMO",        ChannelAccess.Alarms.MAJOR),
-    (7, "PLT2EN SMPL Homing TMO",   ChannelAccess.Alarms.MAJOR),
-    (8, "PLT2EN SMPL Engaging TMO", ChannelAccess.Alarms.MAJOR)
+    (5, "PLT2 Homing TMO", ChannelAccess.Alarms.MAJOR),
+    (6, "PLT2 Engaging TMO", ChannelAccess.Alarms.MAJOR),
+    (7, "PLT2EN SMPL Homing TMO", ChannelAccess.Alarms.MAJOR),
+    (8, "PLT2EN SMPL Engaging TMO", ChannelAccess.Alarms.MAJOR),
 ]
 
 ALARM_PVS = [
@@ -65,7 +56,7 @@ ALARM_PVS = [
     "LMT:SAMPLE:HOME",
     "LMT:SAMPLE:ENGAGED",
     "AIR",
-    "ERR"
+    "ERR",
 ]
 
 
@@ -73,6 +64,7 @@ class TjmperTests(unittest.TestCase):
     """
     Tests for the Tjmper IOC.
     """
+
     def setUp(self):
         self._lewis, self._ioc = get_running_lewis_and_ioc("Tjmper", DEVICE_PREFIX)
         self._lewis.backdoor_run_function_on_device("reset")
