@@ -1,22 +1,22 @@
 from collections import OrderedDict
-from enum import Enum
-from .states import DefaultState
+
 from lewis.devices import StateMachineDevice
+
+from .states import DefaultState
 
 
 class SimulatedTjmper(StateMachineDevice):
-
     def _initialize_data(self):
         self.connected = True
         self.reset()
-        
+
     def _get_state_handlers(self):
         return {
-            'default': DefaultState(),
+            "default": DefaultState(),
         }
 
     def _get_initial_state(self):
-        return 'default'
+        return "default"
 
     def _get_transition_handlers(self):
         return OrderedDict([])
