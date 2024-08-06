@@ -2,12 +2,10 @@ import contextlib
 import unittest
 
 from parameterized import parameterized
-
 from utils.channel_access import ChannelAccess
 from utils.ioc_launcher import get_default_ioc_dir
 from utils.test_modes import TestModes
 from utils.testing import get_running_lewis_and_ioc, parameterized_list
-
 
 DEVICE_PREFIX = "TJMPER_01"
 

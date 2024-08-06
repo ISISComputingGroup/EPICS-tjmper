@@ -1,7 +1,8 @@
 from collections import OrderedDict
-from enum import Enum
-from .states import DefaultState
+
 from lewis.devices import StateMachineDevice
+
+from .states import DefaultState
 
 
 class SimulatedTjmper(StateMachineDevice):
